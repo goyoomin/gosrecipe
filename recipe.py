@@ -11,12 +11,13 @@ api_key = os.getenv("GEMINI_API_KEY")
 
 genai.configure(api_key=api_key)
 
-# 이전에 gemini-1.5-pro 모델 오류가 발생했기 때문에
-# 현재 실행 가능한 Gemini 모델명으로 사용
+# PDF에서는 gemini-1.5-pro를 사용하지만,
+# 현재 API 오류가 발생했기 때문에 실행 가능한 모델명으로 사용
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 cuisines = [
+    "",
     "Italian",
     "Mexican",
     "Chinese",
@@ -34,7 +35,6 @@ cuisines = [
 dietary_restrictions = [
     "Gluten-Free",
     "Dairy-Free",
-    "Vegetarian",
     "Vegan",
     "Pescatarian",
     "Nut-Free",
@@ -46,28 +46,30 @@ dietary_restrictions = [
 ]
 
 
-languages = [
-    "English",
-    "Spanish",
-    "French",
-    "German",
-    "Russian",
-    "Chinese",
-    "Japanese",
-    "Korean",
-    "Italian",
-    "Portuguese",
-    "Arabic",
-    "Dutch",
-    "Swedish",
-    "Turkish",
-    "Greek",
-    "Hebrew",
-    "Hindi",
-    "Indonesian",
-    "Thai",
-    "Vietnamese",
-]
+languages = {
+    "English": "en",
+    "Spanish": "es",
+    "French": "fr",
+    "German": "de",
+    "Russian": "ru",
+    "Chinese (Simplified)": "zh-cn",
+    "Chinese (Traditional)": "zh-tw",
+    "Japanese": "ja",
+    "Korean": "ko",
+    "Italian": "it",
+    "Portuguese": "pt",
+    "Arabic": "ar",
+    "Dutch": "nl",
+    "Swedish": "sv",
+    "Turkish": "tr",
+    "Greek": "el",
+    "Hebrew": "he",
+    "Hindi": "hi",
+    "Indonesian": "id",
+    "Thai": "th",
+    "Filipino": "tl",
+    "Vietnamese": "vi",
+}
 
 
 @app.route("/")
@@ -76,7 +78,7 @@ def index():
         "index.html",
         cuisines=cuisines,
         dietary_restrictions=dietary_restrictions,
-        languages=languages
+        languages=languages,
     )
 
 
@@ -96,14 +98,20 @@ Craft a recipe in HTML using {", ".join(ingredients)}.
 
 Ensure the recipe ingredients appear at the top,
 followed by the step-by-step instructions.
+
+The recipe should include:
+1. A recipe title
+2. Ingredients section
+3. Instructions section
+4. Clear and simple cooking steps
 """
 
     if selected_cuisine:
         prompt += f"\nThe cuisine should be {selected_cuisine}."
 
-    if selected_restrictions:
+    if selected_restrictions and len(selected_restrictions) > 0:
         prompt += f"""
-The recipe should follow these dietary restrictions:
+The recipe should have the following restrictions:
 {", ".join(selected_restrictions)}.
 """
 

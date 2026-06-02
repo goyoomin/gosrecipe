@@ -6,8 +6,17 @@ body {
     padding: 0;
 }
 
+/* Container Styling */
+.class-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
 /* Centered Form Styling */
 form {
+    width: 100%;
     max-width: 420px;
     margin: 20px auto 50px auto;
     padding: 20px;
@@ -18,7 +27,7 @@ form {
 
 h2 {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 8px;
 }
 
@@ -32,7 +41,7 @@ h2 {
 
 /* Input Styling */
 input[type="text"] {
-    width: 95%;
+    width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -87,7 +96,7 @@ select#language option {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-    width: 95%;
+    width: 100%;
     margin-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -107,4 +116,61 @@ label.checkbox-label {
     display: inline-block;
     margin-right: 10px;
     font-size: 14px;
+}
+
+/* Generated Recipe Page */
+#root {
+    max-width: 800px;
+    margin-top: 30px;
+}
+
+.page-header {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.page-header p {
+    line-height: 1.7;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    padding: 20px 0;
+}
+
+/* Responsive Styling */
+@media (max-width: 576px) {
+    .class-container {
+        margin-top: 15px;
+        padding: 0 10px;
+    }
+
+    form {
+        margin-top: 15px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .checkbox-group {
+        flex: 0 0 100%;
+    }
+
+    input[type="text"],
+    select#cuisine,
+    select#language,
+    input[type="submit"] {
+        font-size: 15px;
+    }
+
+    .page-header {
+        padding: 15px;
+    }
 }
